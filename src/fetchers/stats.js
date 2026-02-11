@@ -226,7 +226,7 @@ const totalCommitsFetcher = async (username) => {
  */
 const fetchStats = async (
   username,
-  include_all_commits = false,
+  include_all_commits = true,  // Changed default from false to true
   exclude_repo = [],
   include_merged_pull_requests = false,
   include_discussions = false,

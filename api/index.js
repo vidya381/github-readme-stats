@@ -85,9 +85,11 @@ export default async (req, res) => {
 
   try {
     const showStats = parseArray(show);
+    // Force include_all_commits to true by default, or use the parameter if explicitly set to false
+    const shouldIncludeAllCommits = include_all_commits === 'false' ? false : true;
     const stats = await fetchStats(
       username,
-      parseBoolean(include_all_commits),
+      shouldIncludeAllCommits,
       parseArray(exclude_repo),
       showStats.includes("prs_merged") ||
         showStats.includes("prs_merged_percentage"),
@@ -112,7 +114,7 @@ export default async (req, res) => {
         hide_border: parseBoolean(hide_border),
         card_width: parseInt(card_width, 10),
         hide_rank: parseBoolean(hide_rank),
-        include_all_commits: parseBoolean(include_all_commits),
+        include_all_commits: shouldIncludeAllCommits,
         commits_year: parseInt(commits_year, 10),
         line_height,
         title_color,
